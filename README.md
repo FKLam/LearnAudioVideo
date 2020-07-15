@@ -28,3 +28,21 @@ make -j8 make install
 ```
 lipo -create ./arm64/lib/libmp3lame.a ./armv7/lib/libmp3lame.a -output libmp3lame.a
 ```
+## 2.FDK_AAC编码、解码AAC格式音频文件的开源库
+SourceForge：https://sourceforge.net/p/opencore-amr/fdk-aac/ci/v0.1.4/tree/
+### build_armv7.sh脚本
+```
+./configure \
+--enable-static \
+--disable-shared \
+--host=arm-apple-darwin \ --prefix="$FDK_ROOT_DIR/thin/armv7"
+CC="xcrun -sdk iphoneos clang" \ AS="gas-preprocessor.pl $CC"
+CFLAGS="-arch armv7 -mios-simulator-version-min=7.0" \ LDFLAGS="-arch armv7 -mios-simulator-version-min=7.0" make clean
+make -j8 make install
+```
+### FDK_AAC的配置选项中要去比LAME多配置一项AS参数，并且需要安装gas-preprocesssor
+https://github.com/applexiaohao/gas-preprocessor
+下载gas-preprocessor.pl，然后复制到/usr/local/bin/目录下，修改/usr/local/bin/gas-preprocessor.pl的文件权限为可执行权限
+```
+chmod 777 /usr/local/bin/gas-preprocessor.pl
+```
