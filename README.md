@@ -46,3 +46,20 @@ https://github.com/applexiaohao/gas-preprocessor
 ```
 chmod 777 /usr/local/bin/gas-preprocessor.pl
 ```
+## 3.X264是一个开源的H.264/MPEG-4 AVC视频编码函数库
+http://www.videolan.org/developers/x264.html
+git clone git://git.videolan.org/x264.git
+### build_armv7.sh脚本
+```
+#!/bin/sh
+export AS="gas-preprocessor.pl -arch arm -- xcrun -sdk iphoneos clang" export CC="xcrun -sdk iphoneos clang"
+./configure \
+--enable-static \
+--enable-pic \
+--disable-shared \
+--host=arm-apple-darwin \
+--extra-cflags="-arch armv7 -mios-version-min=7.0" \ --extra-asflags="-arch armv7 -mios-version-min=7.0" \ --extra-ldflags="-arch armv7 -mios-version-min=7.0" \ --prefix="./thin/armv7"
+make clean
+make -j8
+make install
+```
